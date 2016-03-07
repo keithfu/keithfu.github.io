@@ -3,9 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script src = "https://cdn.wilddog.com/js/client/current/wilddog.js" ></script>
 </head>
 <body>
   <h1>Hello World</h1>
-<script>alert("Hello")</script>
+<script>
+    var ref = new Wilddog("https://smalltable.wilddogio.com/menus");
+
+    ref.on("value", function(snapshot) {
+        console.log(snapshot.val());
+    }, function (errorObject) {
+        alert("The read failed: " + errorObject.code);
+    });
+</script>
 </body>
 </html>
