@@ -27009,19 +27009,18 @@
 	        var isLogin = this.props.isLogin;
 	        var stopMenu = this.props.stopMenu;
 	        var delBtnHtml = "";
-	        var isPayHtml = "未付款";
-	        var isPay = orderInfo.isPay ? "已付款" : _react2.default.createElement(
-	            'button',
-	            { className: 'payfor-btn', onClick: this.handlePayFor },
-	            '否'
-	        );
+	        var isPayHtml = orderInfo.isPay ? "已付款" : "未付款";
 	        if (isLogin) {
 	            delBtnHtml = _react2.default.createElement(
 	                'button',
 	                { className: 'delete-btn', onClick: this.handleRemove },
 	                '删除'
 	            );
-	            isPayHtml = isPay;
+	            isPayHtml = orderInfo.isPay ? "已付款" : _react2.default.createElement(
+	                'button',
+	                { className: 'payfor-btn', onClick: this.handlePayFor },
+	                '否'
+	            );
 	        }
 	        //超过今天不能操作了
 	        var dayStart = _tools2.default.startDay();
