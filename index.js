@@ -27021,6 +27021,14 @@
 	                { className: 'payfor-btn', onClick: this.handlePayFor },
 	                '否'
 	            );
+	        } else {
+	            if (stopMenu > 0) {
+	                delBtnHtml = _react2.default.createElement(
+	                    'button',
+	                    { className: 'delete-btn', onClick: this.handleRemove },
+	                    '删除'
+	                );
+	            }
 	        }
 	        //超过今天不能操作了
 	        var dayStart = _tools2.default.startDay();
