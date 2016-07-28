@@ -1,6 +1,7 @@
 *{padding: 0;margin:0;font-size: 14px;color: #6f6f6f;}
 body{background: #f0f0f0;}
 input,input:focus{outline: 0;height: 25px;line-height: 25px\9;vertical-align: middle;padding-left: 5px;}
+select{height: 28px;width: 200px;}
 button{outline: none;cursor: pointer;}
 textarea{outline: none;padding: 5px 0px 0px 5px;height: 50px;width: 150px;}
 li{list-style: none;}

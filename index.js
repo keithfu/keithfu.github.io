@@ -26831,7 +26831,7 @@
 	      _react2.default.createElement(
 	        _reactRouter.Link,
 	        { to: '/', className: 'title-a' },
-	        '欢迎进入千帆订餐系统！'
+	        '欢迎进入XXX订餐系统！'
 	      ),
 	      AddMenuButton,
 	      StopButton,
@@ -26902,12 +26902,14 @@
 	var ordersRefYeGou = refYeGou.child("orders");
 	var menusRefYeGou = refYeGou.child("menus");
 	var aclsRefYeGou = refYeGou.child("acls");
+	var orderUsersArr = ['刘建星', '龚会明', '管立宇', '候宇鑫', '倪鹏博', '王聪阁', '周墨', '刘凤斌', '王睿', '周宝营', '吴帆', '商务姿姿', '苏兆铮', '王怿'];
 
 	var config = {
 		refYeGou: refYeGou,
 		ordersRefYeGou: ordersRefYeGou,
 		menusRefYeGou: menusRefYeGou,
-		aclsRefYeGou: aclsRefYeGou
+		aclsRefYeGou: aclsRefYeGou,
+		orderUsersArr: orderUsersArr
 	};
 
 	exports.default = config;
@@ -42814,6 +42816,8 @@
 	var ordersRefYeGou = _config2.default.ordersRefYeGou;
 	var menusRefYeGou = _config2.default.menusRefYeGou;
 
+	var orderUsersArr = _config2.default.orderUsersArr;
+
 	var MenuListItem = _react2.default.createClass({
 	    displayName: 'MenuListItem',
 
@@ -42883,8 +42887,8 @@
 	    },
 	    initAllData: function initAllData() {
 	        return {
-	            userName: '',
-	            orderCount: '',
+	            userName: orderUsersArr[0],
+	            orderCount: '1',
 	            remark: '',
 	            isPay: false, //是否付款
 	            menuChoseList: []
@@ -42904,16 +42908,22 @@
 	                myMneus.push(menuObj);
 	            });
 	            self.setState({ menuList: myMneus });
-	        });
+	        }.bind(this));
 	    },
 	    handleChange: function handleChange(refitem) {
-	        var curValue = this.refs[refitem].value;
+	        var refsItem = this.refs[refitem];
+	        var curValue = refsItem.value;
+
+	        if (refsItem.tagName == "SELECT") {
+	            curValue = refsItem[curValue].innerText;
+	        }
+
 	        var myObj = {};
 	        //数量只能是数字
 	        if (refitem == "orderCount") {
 	            var regNum = /^\d+$/;
 	            if (!regNum.test(curValue)) {
-	                curValue = '';
+	                curValue = '1';
 	            } else {
 	                curValue = curValue;
 	            }
@@ -42949,6 +42959,7 @@
 	        var nowTime = new Date().getTime();
 	        var postData = self.state;
 	        postData['createTime'] = nowTime;
+	        delete postData['menuList'];
 	        if (self.state.menuChoseList.length == 0) {
 	            alert("选个菜！");
 	        } else if (self.state.userName.length == 0 || self.state.orderCount.length == 0) {
@@ -42961,6 +42972,14 @@
 	        }
 	    },
 	    render: function render() {
+	        var userArr = [];
+	        orderUsersArr.forEach(function (item, idx) {
+	            userArr.push(_react2.default.createElement(
+	                'option',
+	                { key: idx, value: idx },
+	                item
+	            ));
+	        });
 	        return _react2.default.createElement(
 	            'div',
 	            { className: 'add-wrap' },
@@ -42981,7 +43000,11 @@
 	                        null,
 	                        '用户名：'
 	                    ),
-	                    _react2.default.createElement('input', { type: 'text', className: 'w100', value: this.state.userName, ref: 'userName', onChange: this.handleChange.bind(this, "userName") }),
+	                    _react2.default.createElement(
+	                        'select',
+	                        { defaultValue: '0', ref: 'userName', onChange: this.handleChange.bind(this, "userName") },
+	                        userArr
+	                    ),
 	                    _react2.default.createElement(
 	                        'label',
 	                        null,
