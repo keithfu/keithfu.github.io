@@ -27023,14 +27023,6 @@
 	                { className: 'payfor-btn', onClick: this.handlePayFor },
 	                '否'
 	            );
-	        } else {
-	            if (stopMenu > 0) {
-	                delBtnHtml = _react2.default.createElement(
-	                    'button',
-	                    { className: 'delete-btn', onClick: this.handleRemove },
-	                    '删除'
-	                );
-	            }
 	        }
 	        //超过今天不能操作了
 	        var dayStart = _tools2.default.startDay();
@@ -27174,7 +27166,7 @@
 	        var trArrs = [];
 	        if (this.props.orderListData.length > 0) {
 	            this.props.orderListData.map(function (item, idx) {
-	                trArrs.push(_react2.default.createElement(MenuItemComponent, { key: idx, orderInfo: item,
+	                trArrs.push(_react2.default.createElement(MenuItemComponent, { key: item.id, orderInfo: item,
 	                    handleRemove: this.handleRemove,
 	                    handlePayFor: this.handlePayFor,
 	                    handleInputBlur: this.handleInputBlur,
@@ -42933,22 +42925,12 @@
 	    },
 	    handleChecked: function handleChecked(menus, tid) {
 	        //获取被选中的菜单
-	        var choseList = this.state.menuChoseList;
-	        if (choseList.length > 0) {
-	            choseList.map(function (item, idx) {
-	                if (menus.checked == true && item.id != tid) {
-	                    choseList.push(menus);
-	                } else {
-	                    if (item.id == tid) {
-	                        choseList.splice(idx, 1);
-	                    }
-	                }
-	            });
-	        } else {
-	            if (menus.checked == true) {
-	                choseList.push(menus);
+	        var choseList = [];
+	        this.state.menuList.map(function (item, idx) {
+	            if (item.checked == true) {
+	                choseList.push(item);
 	            }
-	        }
+	        });
 	        this.setState({
 	            menuChoseList: choseList
 	        });
@@ -42976,7 +42958,7 @@
 	        orderUsersArr.forEach(function (item, idx) {
 	            userArr.push(_react2.default.createElement(
 	                'option',
-	                { key: idx, value: idx },
+	                { key: item.id, value: idx },
 	                item
 	            ));
 	        });
